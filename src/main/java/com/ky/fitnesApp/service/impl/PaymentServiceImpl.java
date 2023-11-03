@@ -1,10 +1,11 @@
 package com.ky.fitnesApp.service.impl;
 
-import com.ky.fitnesApp.dto.BillingDto;
-import com.ky.fitnesApp.dto.ServiceDto;
+import com.ky.fitnesApp.dto.SubscriptionDto;
+import com.ky.fitnesApp.dto.MenuServiceDto;
 import com.ky.fitnesApp.dto.UserDto;
+import com.ky.fitnesApp.dto.request.SubscriptionRequest;
 import com.ky.fitnesApp.dto.response.GetBillingResponse;
-import com.ky.fitnesApp.repository.ServiceRepository;
+import com.ky.fitnesApp.repository.MenuRepository;
 import com.ky.fitnesApp.repository.UserRepository;
 import com.ky.fitnesApp.service.PaymentService;
 import org.springframework.stereotype.Service;
@@ -12,21 +13,33 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentServiceImpl implements PaymentService {
 
-    ServiceRepository serviceRepository;
+    MenuRepository menuRepository;
     UserRepository userRepository;
 
-    public PaymentServiceImpl(ServiceRepository serviceRepository, UserRepository userRepository) {
-        this.serviceRepository = serviceRepository;
+    public PaymentServiceImpl(MenuRepository menuRepository, UserRepository userRepository) {
+        this.menuRepository = menuRepository;
         this.userRepository = userRepository;
     }
 
     @Override
-    public GetBillingResponse getBilling(BillingDto billingDto) {
-        UserDto user = userRepository.getById(billingDto.getUserId());
-        ServiceDto serviceDto = serviceRepository.getById(billingDto.getServiceId());
+    public GetBillingResponse getBilling(SubscriptionRequest subscriptionDto) {
+        UserDto user = userRepository.getById(subscriptionDto.getUserId());
+        MenuServiceDto menuServiceDto = menuRepository.getById(subscriptionDto.getServiceId());
         GetBillingResponse getBillingResponse = new GetBillingResponse();
         getBillingResponse.setName(user.getName());
-        getBillingResponse.setPrice(serviceDto.getPrice());
+        getBillingResponse.setPrice(menuServiceDto.getPrice());
         return getBillingResponse;
     }
+
+    @Override
+    public boolean verifyBilling(SubscriptionRequest subscriptionDto) {
+        UserDto user = userRepository.getById(subscriptionDto.getUserId());
+        MenuServiceDto service = menuRepository.getById(subscriptionDto.getServiceId());
+        if (menuRepository.existsById(service.getId()) && userRepository.existsById(user.getId())){
+            return true;
+        }
+        return false;
+    }
+
+
 }

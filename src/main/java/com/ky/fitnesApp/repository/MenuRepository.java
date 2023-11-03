@@ -1,9 +1,9 @@
 package com.ky.fitnesApp.repository;
 
-import com.ky.fitnesApp.dto.ServiceDto;
+import com.ky.fitnesApp.dto.MenuServiceDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ServiceRepository extends JpaRepository<ServiceDto, Long> {
+public interface MenuRepository extends JpaRepository<MenuServiceDto, Long> {
 }
