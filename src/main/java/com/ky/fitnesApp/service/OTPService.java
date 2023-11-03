@@ -1,6 +1,5 @@
 package com.ky.fitnesApp.service;
 
-import com.ky.fitnesApp.dto.UserDto;
 import com.ky.fitnesApp.dto.request.VerifyRequest;
 
 public interface OTPService {

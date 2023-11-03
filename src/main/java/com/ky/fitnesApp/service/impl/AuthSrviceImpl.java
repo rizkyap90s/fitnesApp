@@ -6,7 +6,6 @@ import com.ky.fitnesApp.dto.request.LoginRequest;
 import com.ky.fitnesApp.repository.TokenRepository;
 import com.ky.fitnesApp.repository.UserRepository;
 import com.ky.fitnesApp.service.AuthService;
-import org.antlr.v4.runtime.Token;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -42,16 +41,14 @@ public class AuthSrviceImpl implements AuthService {
     }
 
     @Override
-    public TokenDto refrashToken(Long id) {
-        Optional<TokenDto> tokenDto = tokenRepository.findById(id);
-        TokenDto newToken = tokenDto.get();
+    public TokenDto refrashToken(String id) {
+        TokenDto newToken = tokenRepository.findByToken(id);
         LocalDateTime currentTime = LocalDateTime.now();
         LocalDateTime expiredTime = LocalDateTime.now().plusDays(1);
 
         newToken.setToken(randomToken());
         newToken.setReleaseDate(currentTime);
         newToken.setExpiredDate(expiredTime);
-
         tokenRepository.save(newToken);
         return newToken;
     }
@@ -81,9 +78,9 @@ public class AuthSrviceImpl implements AuthService {
     }
 
     @Override
-    public String removeToken(String token) {
-        tokenRepository.deleteByToken(token);
-        return "Token deleted";
+    public String removeToken(Long token) {
+        tokenRepository.deleteById(token);
+        return "Deleted";
     }
 
 

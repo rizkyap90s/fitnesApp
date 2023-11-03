@@ -4,11 +4,9 @@ import com.ky.fitnesApp.dto.UserDto;
 import com.ky.fitnesApp.dto.request.VerifyRequest;
 import com.ky.fitnesApp.repository.UserRepository;
 import com.ky.fitnesApp.service.OTPService;
-import org.apache.catalina.User;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
-import org.springframework.mail.SimpleMailMessage;
 
 import java.util.Map;
 import java.util.Optional;

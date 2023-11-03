@@ -8,10 +8,10 @@ public interface AuthService {
 
     TokenDto login(LoginRequest loginRequest);
 
-    TokenDto refrashToken(Long token);
+    TokenDto refrashToken(String token);
 
     TokenDto generateToken(UserDto userDto);
 
-    String removeToken(String Token);
+    String removeToken(Long Token);
 
 }

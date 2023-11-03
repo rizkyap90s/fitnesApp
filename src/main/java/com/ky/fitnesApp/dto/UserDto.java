@@ -24,5 +24,5 @@ public class UserDto {
 
     @Column(name="credit_card")
     @Embedded
-    private CreditCardDto creditCardDto;
+    private CreditCardDto creditCard;
 }

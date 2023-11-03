@@ -1,14 +1,11 @@
-package com.ky.fitnesApp.dto;
+package com.ky.fitnesApp.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-import jakarta.persistence.*;
 import lombok.Data;
 
 import java.time.LocalDateTime;
 
-@Embeddable
 @Data
-public class CreditCardDto {
+public class CreditCardRequest {
 
     private Long userId;
 

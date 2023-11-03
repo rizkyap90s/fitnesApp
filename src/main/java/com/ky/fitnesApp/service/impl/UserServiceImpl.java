@@ -47,7 +47,8 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public SignUpRequest updateUser(Long id, SignUpRequest signUpRequest) {
+    public SignUpRequest updateUser(SignUpRequest signUpRequest) {
+        Long id = signUpRequest.getUserId();
         if(!userRepository.existsById(id)){
             throw new EntityNotFoundException(id + " NOT FOUND");
         }
@@ -65,13 +66,14 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateCreditCard(Long id, CreditCardDto creditCardDto) {
+    public UserDto updateCreditCard(CreditCardDto creditCardDto) {
+        Long id = creditCardDto.getUserId();
         if(!userRepository.existsById(id)){
             throw new EntityNotFoundException(id + " NOT FOUND");
         }
         Optional<UserDto> getUSer = userRepository.findById(id);
         UserDto userDto = getUSer.get();
-        userDto.setCreditCardDto(creditCardDto);
+        userDto.setCreditCard(creditCardDto);
 
         userRepository.save(userDto);
         return userDto;
@@ -91,8 +93,4 @@ public class UserServiceImpl implements UserService {
         return userDto.get().getStatus();
     }
 
-    @Override
-    public void deleteUser(Long id) {
-        userRepository.deleteById(id);
-    }
 }
